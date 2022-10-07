@@ -12,7 +12,10 @@
  *
  */
 
-package org.eclipse.dataspaceconnector.plugins.autodoc.test;
+package org.eclipse.dataspaceconnector.plugins.autodoc.core.processor.testspi;
 
-public interface OptionalService {
+import org.eclipse.dataspaceconnector.runtime.metamodel.annotation.ExtensionPoint;
+
+@ExtensionPoint
+public interface ExtensionService {
 }

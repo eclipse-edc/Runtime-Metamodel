@@ -12,7 +12,11 @@
  *
  */
 
-package org.eclipse.dataspaceconnector.plugins.autodoc.test;
+package org.eclipse.dataspaceconnector.plugins.autodoc.core.processor.testextensions;
 
-public interface ProvidedService1 {
+import org.eclipse.dataspaceconnector.runtime.metamodel.annotation.Inject;
+
+public class NotAnExtension {
+    @Inject(required = false)
+    private OptionalService optionalService;
 }

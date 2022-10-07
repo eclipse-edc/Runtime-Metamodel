@@ -12,9 +12,7 @@
  *
  */
 
-package org.eclipse.dataspaceconnector.tooling.sample.module;
+package org.eclipse.dataspaceconnector.spi.system;
 
-public interface TestConstants {
-
-    String NAME = "Sample SPI";
+public interface ServiceExtension {
 }

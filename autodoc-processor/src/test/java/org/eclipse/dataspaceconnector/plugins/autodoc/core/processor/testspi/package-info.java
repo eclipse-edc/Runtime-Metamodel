@@ -12,10 +12,12 @@
  *
  */
 
-package org.eclipse.dataspaceconnector.tooling.sample.module;
+/**
+ * This is a sample SPI package.
+ */
+@Spi(value = TEST_SPI_MODULE, categories = { "category" })
+package org.eclipse.dataspaceconnector.plugins.autodoc.core.processor.testspi;
 
-import org.eclipse.dataspaceconnector.runtime.metamodel.annotation.ExtensionPoint;
+import org.eclipse.dataspaceconnector.runtime.metamodel.annotation.Spi;
 
-@ExtensionPoint
-public interface ExtensionService {
-}
+import static org.eclipse.dataspaceconnector.plugins.autodoc.core.processor.Constants.TEST_SPI_MODULE;
