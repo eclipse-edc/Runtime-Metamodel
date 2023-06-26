@@ -25,7 +25,7 @@ catalog {
 
 publishing {
     publications {
-        create<MavenPublication>("version-catalog") {
+        create<MavenPublication>("runtime-metamodel-versions") {
             from(components["versionCatalog"])
             artifactId = "runtime-metamodel-versions"
         }

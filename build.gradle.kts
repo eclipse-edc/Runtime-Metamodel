@@ -3,6 +3,8 @@ plugins {
     checkstyle
     `java-library`
     `version-catalog`
+    `maven-publish`
+    signing
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
 }
 
@@ -27,6 +29,50 @@ allprojects {
         metaInf {
             from("${rootProject.projectDir.path}/NOTICE.md")
             from("${rootProject.projectDir.path}/LICENSE")
+        }
+    }
+
+    afterEvaluate {
+        // values needed for publishing
+        val websiteUrl: String by project
+        val developerId: String by project
+        val developerName: String by project
+        val developerEmail: String by project
+        val scmConnection: String by project
+        val scmUrl: String by project
+        publishing {
+            publications.forEach { i ->
+                val mp = (i as MavenPublication)
+                mp.pom {
+                    name.set(project.name)
+                    description.set("Runtime metamodel for annotations of the Eclipse Dataspace Components")
+                    url.set(websiteUrl)
+
+                    licenses {
+                        license {
+                            name.set("The Apache License, Version 2.0")
+                            url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                        }
+                        developers {
+                            developer {
+                                id.set(developerId)
+                                name.set(developerName)
+                                email.set(developerEmail)
+                            }
+                        }
+                        scm {
+                            connection.set(scmConnection)
+                            url.set(scmUrl)
+                        }
+                    }
+                }
+            }
+            if (!project.hasProperty("skip.signing")) {
+                signing {
+                    useGpgCmd()
+                    sign(publishing.publications)
+                }
+            }
         }
     }
 
