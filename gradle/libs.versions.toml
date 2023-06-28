@@ -2,7 +2,7 @@
 format.version = "1.1"
 
 [versions]
-assertj = "3.23.1"
+assertj = "3.24.2"
 jackson = "2.15.2"
 jetbrainsAnnotation = "24.0.1"
 junit = "5.9.2"
