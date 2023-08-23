@@ -6,7 +6,7 @@ assertj = "3.24.2"
 jackson = "2.15.2"
 jetbrainsAnnotation = "24.0.1"
 junit = "5.10.0"
-mockito = "5.4.0"
+mockito = "5.5.0"
 
 [libraries]
 jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson" }
