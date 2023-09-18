@@ -3,6 +3,8 @@ name: Run Tests
 on:
   workflow_dispatch:
   push:
+    branches:
+      - main
   pull_request:
     branches: [ main ]
     paths-ignore:
@@ -23,7 +25,7 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-build
 
       - name: Run Checkstyle
@@ -32,7 +34,7 @@ jobs:
   Javadoc:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-build
 
       - name: Run Javadoc
@@ -42,7 +44,7 @@ jobs:
   Unit-Tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-build
 
       - name: Run unit tests
@@ -50,25 +52,9 @@ jobs:
         with:
           command: ./gradlew test
 
-  Trigger-Snapshot:
-    runs-on: ubuntu-latest
+  Create-Snapshot:
     # forks cannot trigger Jenkins
+    needs: [ Checkstyle, Javadoc, Unit-Tests ]
     if: github.repository == 'eclipse-edc/Runtime-Metamodel' && github.event_name == 'push' && github.ref_name == 'main'
-    needs: [Checkstyle, Javadoc, Unit-Tests]
-    steps:
-      # Trigger EF Jenkins. This job waits for Jenkins to complete the publishing, which may take a long time, because every
-      # module is signed individually, and parallelism is not available. Hence, the increased timeout of 3600 seconds.
-      # There is no way to cancel the process on Jenkins from withing GitHub.
-      - name: Call Jenkins API to trigger build
-        uses: toptal/jenkins-job-trigger-action@master
-        with:
-          jenkins_url: "https://ci.eclipse.org/edc/"
-          jenkins_user: ${{ secrets.EF_JENKINS_USER }}
-          jenkins_token: ${{ secrets.EF_JENKINS_TOKEN }}
-          # empty params are needed, otherwise the job will fail.
-          job_params: |
-            {
-              "REPO": "https://github.com/eclipse-edc/Runtime-Metamodel"
-            }
-          job_name: "Publish-Component"
-          job_timeout: "3600" # Default 30 sec. (optional)
+    uses: eclipse-edc/.github/.github/workflows/publish-snapshot.yml@main
+    secrets: inherit
