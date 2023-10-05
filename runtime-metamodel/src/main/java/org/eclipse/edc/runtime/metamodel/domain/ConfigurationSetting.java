@@ -36,6 +36,7 @@ public class ConfigurationSetting {
     private Long minimum;
     private Long maximum;
     private String description;
+    private String defaultValue;
 
     private ConfigurationSetting() {
     }
@@ -87,6 +88,10 @@ public class ConfigurationSetting {
      */
     public String getDescription() {
         return description;
+    }
+
+    public String getDefaultValue() {
+        return defaultValue;
     }
 
     @Override
@@ -151,6 +156,11 @@ public class ConfigurationSetting {
 
         public Builder description(String description) {
             setting.description = description;
+            return this;
+        }
+
+        public Builder defaultValue(String defaultValue) {
+            setting.defaultValue = defaultValue;
             return this;
         }
 

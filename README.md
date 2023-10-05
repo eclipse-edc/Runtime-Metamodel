@@ -1,13 +1,7 @@
-# Gradle Plugins for EDC
+# Runtime Metamodel
 
-This repository contains various plugins for the EDC Gradle build. They are accessible through the [Gradle Plugin Portal](https://plugins.gradle.org/)
-
-See also the main [project page on Github](https://github.com/eclipse-dataspaceconnector/DataSpaceConnector).
-
-## Documentation
-
-Developer documentation can be found under [docs/developer](docs/developer/), where the main concepts and decisions are captured as [decision records](docs/developer/decision-records/).
+This repository contains the runtime metamodel classes and annotations that describe the EDC module model.
 
 ## Contributing
 
-See [how to contribute](https://github.com/eclipse-dataspaceconnector/DataSpaceConnector/blob/main/CONTRIBUTING.md) for details.
+See [how to contribute](https://github.com/eclipse-edc/.github/blob/main/CONTRIBUTING.md).

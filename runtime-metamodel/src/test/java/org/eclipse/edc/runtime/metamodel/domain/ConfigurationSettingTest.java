@@ -25,14 +25,15 @@ class ConfigurationSettingTest {
     @Test
     void verifySerializeDeserialize() throws JsonProcessingException {
         var mapper = new ObjectMapper();
-        var configuration = ConfigurationSetting.Builder.newInstance().key("key1").build();
+        var configuration = ConfigurationSetting.Builder.newInstance()
+                .key("key1")
+                .defaultValue("defaultValue")
+                .build();
 
         var serialized = mapper.writeValueAsString(configuration);
         var deserialized = mapper.readValue(serialized, ConfigurationSetting.class);
 
-        assertThat(deserialized).isNotNull();
-        assertThat(deserialized.isRequired()).isTrue();
-        assertThat(deserialized.getKey()).isEqualTo("key1");
+        assertThat(deserialized).usingRecursiveComparison().isEqualTo(configuration);
     }
 
 }
