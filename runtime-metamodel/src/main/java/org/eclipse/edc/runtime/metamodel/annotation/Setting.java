@@ -34,6 +34,11 @@ public @interface Setting {
      */
     String value() default "";
 
+    /**
+     * The setting context
+     */
+    String context() default "";
+
     String type() default "string";
 
     /**
