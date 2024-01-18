@@ -2,11 +2,11 @@
 format.version = "1.1"
 
 [versions]
-assertj = "3.24.2"
-jackson = "2.15.3"
-jetbrainsAnnotation = "24.0.1"
+assertj = "3.25.1"
+jackson = "2.16.1"
+jetbrainsAnnotation = "24.1.0"
 junit = "5.10.1"
-mockito = "5.7.0"
+mockito = "5.9.0"
 
 [libraries]
 jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson" }
