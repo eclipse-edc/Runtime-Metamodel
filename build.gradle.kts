@@ -4,23 +4,20 @@ plugins {
 
 val edcScmUrl: String by project
 val edcScmConnection: String by project
+val edcBuildVersion = libs.versions.edc
 
 buildscript {
     dependencies {
-        val edcGradlePluginsVersion: String by project
-        classpath("org.eclipse.edc.edc-build:org.eclipse.edc.edc-build.gradle.plugin:${edcGradlePluginsVersion}")
+        classpath(libs.edc.build)
     }
 }
 
 allprojects {
     apply(plugin = "${group}.edc-build")
 
-    // let's not generate any reports because that is done from within the GitHub Actions workflow
-    tasks.withType<Checkstyle> {
-        reports {
-            html.required.set(false)
-            xml.required.set(true)
-        }
+    configure<org.eclipse.edc.plugins.autodoc.AutodocExtension> {
+        processorVersion.set(edcBuildVersion)
+        outputDirectory.set(project.layout.buildDirectory.asFile)
     }
 
     configure<org.eclipse.edc.plugins.edcbuild.extensions.BuildExtension> {
