@@ -37,6 +37,7 @@ public class ConfigurationSetting {
     private Long maximum;
     private String description;
     private String defaultValue;
+    private boolean deprecated = false;
 
     private ConfigurationSetting() {
     }
@@ -90,8 +91,18 @@ public class ConfigurationSetting {
         return description;
     }
 
+    /**
+     * Returns the default value.
+     */
     public String getDefaultValue() {
         return defaultValue;
+    }
+
+    /**
+     * Returns true if the setting is deprecated, false otherwise.
+     */
+    public boolean isDeprecated() {
+        return deprecated;
     }
 
     @Override
@@ -161,6 +172,11 @@ public class ConfigurationSetting {
 
         public Builder defaultValue(String defaultValue) {
             setting.defaultValue = defaultValue;
+            return this;
+        }
+
+        public Builder deprecated(boolean deprecated) {
+            setting.deprecated = deprecated;
             return this;
         }
 
