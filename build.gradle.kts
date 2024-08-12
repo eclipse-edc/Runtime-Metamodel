@@ -4,7 +4,7 @@ plugins {
 
 val edcScmUrl: String by project
 val edcScmConnection: String by project
-val edcBuildVersion = libs.versions.edc
+val edcBuildVersion = libs.versions.edc.build
 
 buildscript {
     dependencies {
