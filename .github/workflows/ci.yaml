@@ -20,15 +20,10 @@ concurrency:
 jobs:
 
   Checkstyle:
-    permissions:
-      id-token: write
-      checks: write
-      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: eclipse-edc/.github/.github/actions/setup-build@main
-
       - name: Run Checkstyle
         run: ./gradlew checkstyleMain checkstyleTest
 
@@ -41,7 +36,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: eclipse-edc/.github/.github/actions/setup-build@main
-
       - name: Run Javadoc
         run: ./gradlew javadoc
 
@@ -50,8 +44,5 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: eclipse-edc/.github/.github/actions/setup-build@main
-
       - name: Run unit tests
-        uses: eclipse-edc/.github/.github/actions/run-tests@main
-        with:
-          command: ./gradlew test
+        run: ./gradlew test
