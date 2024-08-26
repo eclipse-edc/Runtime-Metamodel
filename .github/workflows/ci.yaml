@@ -27,10 +27,6 @@ jobs:
       - name: Run Checkstyle
         run: ./gradlew checkstyleMain checkstyleTest
 
-  CodeQL:
-    uses: eclipse-edc/.github/.github/workflows/codeql-analysis.yml@main
-    secrets: inherit
-
   Javadoc:
     runs-on: ubuntu-latest
     steps:
