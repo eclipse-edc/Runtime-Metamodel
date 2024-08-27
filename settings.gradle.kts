@@ -1,4 +1,4 @@
-rootProject.name = "edc-runtime-metamodel"
+rootProject.name = "runtime-metamodel"
 
 include(":runtime-metamodel")
 include(":version-catalog")
