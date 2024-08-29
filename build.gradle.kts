@@ -8,7 +8,10 @@ val edcBuildVersion = libs.versions.edc.build
 
 buildscript {
     dependencies {
-        classpath(libs.edc.build)
+        classpath(libs.edc.build) {
+            exclude("org.jetbrains", "annotations")
+            exclude("org.jetbrains.kotlin", "kotlin-stdlib")
+        }
     }
 }
 
