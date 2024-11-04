@@ -23,10 +23,13 @@ import java.lang.annotation.Target;
 /**
  * Indicates that an extension pertains to the core:transfer module, which will cause it to receive special treatment
  * upon extension loading.
+ *
+ * @deprecated this annotation is not used anymore and can be removed
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
+@Deprecated(since = "0.11.0")
 public @interface CoreExtension {
 
 }
