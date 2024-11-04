@@ -22,9 +22,12 @@ import java.lang.annotation.Target;
 
 /**
  * Indicates that an extension belongs to the runtime core and should always be loaded first.
+ *
+ * @deprecated this annotation is not used anymore and can be removed
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
+@Deprecated(since = "0.11.0")
 public @interface BaseExtension {
 }
