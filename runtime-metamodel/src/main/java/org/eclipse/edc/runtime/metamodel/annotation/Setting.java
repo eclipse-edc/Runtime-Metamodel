@@ -34,8 +34,7 @@ public @interface Setting {
     /**
      * The setting description.
      *
-     * @deprecated Please use {@link Setting#description()} to supply description. In future releases this property will hold the
-     * Setting's config key!
+     * @deprecated Please use {@link Setting#description()} to supply description. In future releases this property will hold the Setting's config key!
      */
     @Deprecated
     String value() default NULL;
@@ -46,6 +45,8 @@ public @interface Setting {
     String context() default NULL;
 
     /**
+     * Type of the config value
+     *
      * @deprecated this attribute is deprecated because it will be inferred from the field
      */
     @Deprecated
