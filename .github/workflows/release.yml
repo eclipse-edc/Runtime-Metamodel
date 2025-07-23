@@ -10,5 +10,6 @@ jobs:
     secrets: inherit
 
   Release:
+    needs: [ Run-Tests ]
     uses: eclipse-edc/.github/.github/workflows/release.yml@main
     secrets: inherit
