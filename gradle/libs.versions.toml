@@ -11,4 +11,4 @@ jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", ver
 jetbrains-annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrainsAnnotation" }
 
 [plugins]
-edc-build = { id = "org.eclipse.edc.edc-build", version = "0.0.2" }
+edc-build = { id = "org.eclipse.edc.edc-build", version = "0.13.0" }
