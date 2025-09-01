@@ -2,11 +2,12 @@
 format.version = "1.1"
 
 [versions]
-jackson = "2.19.2"
+jackson = "2.20.0"
+jackson-annotations = "2.20"
 jetbrainsAnnotation = "26.0.2"
 
 [libraries]
-jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson" }
+jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson-annotations" }
 jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
 jetbrains-annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrainsAnnotation" }
 
