@@ -3,7 +3,7 @@ format.version = "1.1"
 
 [versions]
 jackson = "2.20.1"
-jackson-annotations = "2.20"
+jackson-annotations = "2.21"
 jetbrainsAnnotation = "26.0.2-1"
 
 [libraries]
