@@ -32,25 +32,9 @@ public @interface Setting {
     String NULL = "";
 
     /**
-     * The setting description.
-     *
-     * @deprecated Please use {@link Setting#description()} to supply description. In future releases this property will hold the Setting's config key!
-     */
-    @Deprecated
-    String value() default NULL;
-
-    /**
      * The setting context
      */
     String context() default NULL;
-
-    /**
-     * Type of the config value
-     *
-     * @deprecated this attribute is deprecated because it will be inferred from the field
-     */
-    @Deprecated
-    String type() default "string";
 
     /**
      * The setting default value. Empty string if no default value is provided
@@ -75,8 +59,7 @@ public @interface Setting {
     String key() default NULL;
 
     /**
-     * The Setting's description. This is equivalent to {@link Setting#value()} in the current release, but users should
-     * use this attribute.
+     * The Setting's description.
      *
      * @return The setting's description.
      */
