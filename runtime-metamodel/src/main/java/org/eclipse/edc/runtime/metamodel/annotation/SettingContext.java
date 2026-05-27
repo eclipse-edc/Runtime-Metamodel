@@ -22,10 +22,13 @@ import java.lang.annotation.Target;
 
 /**
  * Defines a context for setting keys.
+ *
+ * @deprecated use {@link Configuration} or {@link Setting} context instead
  */
 @Target({ ElementType.TYPE, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
+@Deprecated(since = "0.18.0")
 public @interface SettingContext {
     String value();
 }
