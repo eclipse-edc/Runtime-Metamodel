@@ -1,7 +1,5 @@
 rootProject.name = "runtime-metamodel"
 
-include(":runtime-metamodel")
-
 pluginManagement {
     repositories {
         gradlePluginPortal()
@@ -11,3 +9,8 @@ pluginManagement {
         }
     }
 }
+
+include(":runtime-metamodel")
+include(":plugins:autodoc:autodoc-plugin")
+include(":plugins:autodoc:autodoc-processor")
+include(":plugins:autodoc:autodoc-converters")
