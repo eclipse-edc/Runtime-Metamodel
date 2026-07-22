@@ -14,11 +14,11 @@
 
 package org.eclipse.edc.plugins.autodoc.json;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.eclipse.edc.plugins.autodoc.spi.ManifestConverterException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 import java.io.InputStream;
 
@@ -46,7 +46,7 @@ class JsonManifestReaderTest {
     void read_inputNotJson() {
         assertThatThrownBy(() -> reader.read(readResource("invalid_manifest.json")))
                 .isInstanceOf(ManifestConverterException.class)
-                .hasRootCauseInstanceOf(JsonProcessingException.class);
+                .hasRootCauseInstanceOf(JacksonException.class);
     }
 
     private InputStream readResource(String filename) {

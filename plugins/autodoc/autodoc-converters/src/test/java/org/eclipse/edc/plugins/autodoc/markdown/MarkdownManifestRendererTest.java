@@ -14,8 +14,6 @@
 
 package org.eclipse.edc.plugins.autodoc.markdown;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.eclipse.edc.plugins.autodoc.spi.ManifestWriter;
 import org.eclipse.edc.runtime.metamodel.domain.ConfigurationSetting;
 import org.eclipse.edc.runtime.metamodel.domain.EdcModule;
@@ -23,6 +21,8 @@ import org.eclipse.edc.runtime.metamodel.domain.EdcServiceExtension;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
