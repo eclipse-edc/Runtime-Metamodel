@@ -14,15 +14,15 @@
 
 package org.eclipse.edc.plugins.autodoc.tasks;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.gradle.api.GradleException;
 import org.gradle.api.logging.Logger;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -63,32 +63,20 @@ class JsonFileAppender {
 
         LOCK.lock();
         try {
-            var srcContent = readJsonFile(source);
-            var targetContent = readJsonFile(destination);
+            var srcContent = mapper.readValue(source, listTypeReference);
+            var targetContent = mapper.readValue(source, listTypeReference);
 
             var newContent = new ArrayList<>();
             newContent.addAll(targetContent);
             newContent.addAll(srcContent);
 
-            writeJsonFile(newContent, destination);
-        } catch (IOException e) {
+            mapper.writeValue(destination, newContent);
+        } catch (JacksonException e) {
             throw new GradleException("Error reading input manifest", e);
         } finally {
             LOCK.unlock();
         }
 
-    }
-
-    private void writeJsonFile(List<?> content, File destination) throws IOException {
-        mapper.writeValue(destination, content);
-    }
-
-    private List<?> readJsonFile(File source) throws IOException {
-        try {
-            return mapper.readValue(source, listTypeReference);
-        } catch (IOException ex) {
-            return Collections.emptyList();
-        }
     }
 
     private void checkOrCreate(File destination) {

@@ -14,7 +14,6 @@
 
 package org.eclipse.edc.plugins.autodoc.core.processor;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.eclipse.edc.plugins.autodoc.core.processor.introspection.ExtensionIntrospector;
 import org.eclipse.edc.plugins.autodoc.core.processor.introspection.ModuleIntrospector;
 import org.eclipse.edc.plugins.autodoc.core.processor.introspection.OverviewIntrospector;
@@ -23,6 +22,7 @@ import org.eclipse.edc.runtime.metamodel.domain.EdcModule;
 import org.eclipse.edc.runtime.metamodel.domain.EdcServiceExtension;
 import org.eclipse.edc.runtime.metamodel.domain.ModuleType;
 import org.jetbrains.annotations.Nullable;
+import tools.jackson.databind.ObjectMapper;
 
 import java.io.BufferedWriter;
 import java.io.File;

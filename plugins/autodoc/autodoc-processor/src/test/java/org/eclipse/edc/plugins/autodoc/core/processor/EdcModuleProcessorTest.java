@@ -14,8 +14,6 @@
 
 package org.eclipse.edc.plugins.autodoc.core.processor;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.eclipse.edc.plugins.autodoc.core.processor.testconfig.ServiceExtensionWithConfig;
 import org.eclipse.edc.plugins.autodoc.core.processor.testextensions.NotAnExtension;
 import org.eclipse.edc.plugins.autodoc.core.processor.testextensions.OptionalService;
@@ -41,6 +39,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.provider.ArgumentsSource;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;

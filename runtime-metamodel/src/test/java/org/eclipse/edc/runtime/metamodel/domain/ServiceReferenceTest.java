@@ -14,16 +14,16 @@
 
 package org.eclipse.edc.runtime.metamodel.domain;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ServiceReferenceTest {
 
     @Test
-    void verifySerializeDeserialize() throws JsonProcessingException {
+    void verifySerializeDeserialize() throws JacksonException {
         var mapper = new ObjectMapper();
         var service = new ServiceReference("foo.bar.BarService", false);
 
