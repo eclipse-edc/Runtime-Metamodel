@@ -39,6 +39,7 @@ import javax.lang.model.util.Types;
 
 import static java.util.stream.Collectors.toList;
 import static javax.tools.Diagnostic.Kind.ERROR;
+import static javax.tools.Diagnostic.Kind.WARNING;
 import static org.eclipse.edc.plugins.autodoc.core.processor.compiler.AnnotationFunctions.attributeStringValues;
 import static org.eclipse.edc.plugins.autodoc.core.processor.compiler.AnnotationFunctions.attributeValue;
 import static org.eclipse.edc.plugins.autodoc.core.processor.compiler.AnnotationFunctions.mirrorFor;
@@ -117,7 +118,7 @@ public class ModuleIntrospector {
                     if (!typeUtils.isAssignable(enclosingElement, serviceExtensionType)) {
                         var message = "@Configuration annotations must be used inside a ServiceExtension implementation, the " +
                                       "ones defined in %s will be excluded from the autodoc manifest".formatted(enclosingElement);
-                        processingEnv.getMessager().printMessage(ERROR, message, setting);
+                        processingEnv.getMessager().printMessage(WARNING, message, setting);
                     }
                 });
 
