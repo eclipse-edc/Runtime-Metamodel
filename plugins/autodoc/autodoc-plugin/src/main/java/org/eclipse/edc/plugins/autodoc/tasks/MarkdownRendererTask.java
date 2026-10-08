@@ -14,7 +14,6 @@
 
 package org.eclipse.edc.plugins.autodoc.tasks;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.eclipse.edc.plugins.autodoc.html.HtmlManifestRenderer;
 import org.eclipse.edc.plugins.autodoc.json.JsonManifestReader;
 import org.eclipse.edc.plugins.autodoc.markdown.MarkdownManifestRenderer;
@@ -24,6 +23,7 @@ import org.gradle.api.DefaultTask;
 import org.gradle.api.GradleException;
 import org.gradle.api.tasks.CacheableTask;
 import org.gradle.api.tasks.TaskAction;
+import tools.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.FileInputStream;

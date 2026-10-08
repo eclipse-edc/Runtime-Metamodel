@@ -14,14 +14,14 @@
 
 package org.eclipse.edc.plugins.autodoc.json;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.eclipse.edc.plugins.autodoc.spi.ManifestConverterException;
 import org.eclipse.edc.plugins.autodoc.spi.ManifestReader;
 import org.eclipse.edc.runtime.metamodel.domain.EdcModule;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
 
 import java.io.BufferedInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
@@ -39,7 +39,7 @@ public class JsonManifestReader implements ManifestReader {
     public List<EdcModule> read(InputStream inputStream) {
         try {
             return objectMapper.readValue(new InputStreamReader(new BufferedInputStream(inputStream)), MODULE_TYPE_REF);
-        } catch (IOException e) {
+        } catch (JacksonException e) {
             throw new ManifestConverterException(e);
         }
     }
