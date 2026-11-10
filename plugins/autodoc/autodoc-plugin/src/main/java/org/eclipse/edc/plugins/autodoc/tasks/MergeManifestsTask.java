@@ -17,7 +17,6 @@ package org.eclipse.edc.plugins.autodoc.tasks;
 import org.eclipse.edc.plugins.autodoc.AutodocExtension;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.GradleException;
-import org.gradle.api.tasks.CacheableTask;
 import org.gradle.api.tasks.OutputFile;
 import org.gradle.api.tasks.TaskAction;
 import org.gradle.api.tasks.options.Option;
@@ -31,8 +30,9 @@ import static org.eclipse.edc.plugins.autodoc.tasks.Constants.DEFAULT_AUTODOC_FO
 
 /**
  * Task that takes an input file (JSON) and appends its contents to a destination file. This task is intended to be called per-project.
+ * It is not cacheable: all the projects append to the same destination file, which a cached output of one project would
+ * overwrite.
  */
-@CacheableTask
 public abstract class MergeManifestsTask extends DefaultTask {
 
     public static final String NAME = "mergeManifests";

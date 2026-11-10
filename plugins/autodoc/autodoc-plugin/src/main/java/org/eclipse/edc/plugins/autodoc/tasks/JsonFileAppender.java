@@ -64,7 +64,7 @@ class JsonFileAppender {
         LOCK.lock();
         try {
             var srcContent = mapper.readValue(source, listTypeReference);
-            var targetContent = mapper.readValue(source, listTypeReference);
+            var targetContent = readDestination(destination);
 
             var newContent = new ArrayList<>();
             newContent.addAll(targetContent);
@@ -77,6 +77,16 @@ class JsonFileAppender {
             LOCK.unlock();
         }
 
+    }
+
+    /**
+     * Reads the current contents of the destination file, which is empty when it has just been created.
+     */
+    private List<?> readDestination(File destination) {
+        if (destination.length() == 0) {
+            return List.of();
+        }
+        return mapper.readValue(destination, listTypeReference);
     }
 
     private void checkOrCreate(File destination) {
