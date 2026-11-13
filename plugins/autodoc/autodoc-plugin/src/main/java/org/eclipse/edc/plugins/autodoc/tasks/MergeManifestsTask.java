@@ -21,6 +21,7 @@ import org.gradle.api.tasks.OutputFile;
 import org.gradle.api.tasks.TaskAction;
 import org.gradle.api.tasks.options.Option;
 import org.gradle.util.internal.GFileUtils;
+import org.gradle.work.DisableCachingByDefault;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -33,6 +34,7 @@ import static org.eclipse.edc.plugins.autodoc.tasks.Constants.DEFAULT_AUTODOC_FO
  * It is not cacheable: all the projects append to the same destination file, which a cached output of one project would
  * overwrite.
  */
+@DisableCachingByDefault(because = "All projects append to the same destination file, a cached output would overwrite it")
 public abstract class MergeManifestsTask extends DefaultTask {
 
     public static final String NAME = "mergeManifests";
