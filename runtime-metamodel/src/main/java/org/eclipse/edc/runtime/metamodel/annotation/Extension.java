@@ -38,4 +38,26 @@ public @interface Extension {
      */
     String[] categories() default "";
 
+    /**
+     * The configuration key of the feature this extension is bound to, e.g. {@code edc.feature.persistence}. An extension
+     * that is bound to a feature is only loaded if this key is configured with {@link #featureValue()}. By convention,
+     * all feature keys share the prefix {@code edc.feature}.
+     * <p>
+     * An empty string (the default) means the extension is not bound to a feature and is always loaded. If set,
+     * {@link #featureValue()} must be set as well.
+     */
+    String featureKey() default "";
+
+    /**
+     * The value that {@link #featureKey()} must be configured with for this extension to be loaded, e.g. {@code postgres}.
+     * The comparison is exact. Only evaluated if {@link #featureKey()} is set.
+     */
+    String featureValue() default "";
+
+    /**
+     * Whether this extension is loaded if {@link #featureKey()} is not configured at all. This is how the default
+     * implementation of a feature is expressed. Only evaluated if {@link #featureKey()} is set.
+     */
+    boolean loadAsDefault() default false;
+
 }

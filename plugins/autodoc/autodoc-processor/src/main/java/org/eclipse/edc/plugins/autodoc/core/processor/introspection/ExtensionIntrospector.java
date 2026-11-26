@@ -72,6 +72,30 @@ public class ExtensionIntrospector {
     }
 
     /**
+     * Returns the feature key set on the {@link Extension} annotation, or null if the extension is not bound to a feature.
+     */
+    @Nullable
+    public String getFeatureKey(Element extensionElement) {
+        return getNonBlankExtensionAttribute("featureKey", extensionElement);
+    }
+
+    /**
+     * Returns the feature value set on the {@link Extension} annotation, or null if it is not set.
+     */
+    @Nullable
+    public String getFeatureValue(Element extensionElement) {
+        return getNonBlankExtensionAttribute("featureValue", extensionElement);
+    }
+
+    /**
+     * Returns the {@code loadAsDefault} attribute of the {@link Extension} annotation, or false if the annotation is absent.
+     */
+    public boolean isLoadAsDefault(Element extensionElement) {
+        var annotationMirror = mirrorFor(Extension.class, extensionElement);
+        return annotationMirror != null && Boolean.TRUE.equals(attributeValue(Boolean.class, "loadAsDefault", annotationMirror, elementUtils));
+    }
+
+    /**
      * Resolves referenced services by introspecting usages of {@link Inject}.
      */
     public List<ServiceReference> resolveReferencedServices(Element extensionElement) {
@@ -131,6 +155,16 @@ public class ExtensionIntrospector {
 
     public String getExtensionClassname(Element element) {
         return element.asType().toString();
+    }
+
+    @Nullable
+    private String getNonBlankExtensionAttribute(String attributeName, Element extensionElement) {
+        var annotationMirror = mirrorFor(Extension.class, extensionElement);
+        if (annotationMirror == null) {
+            return null;
+        }
+        var value = attributeValue(String.class, attributeName, annotationMirror, elementUtils);
+        return value == null || value.isBlank() ? null : value;
     }
 
     private @NotNull Stream<VariableElement> getEnclosedSettings(Element type) {

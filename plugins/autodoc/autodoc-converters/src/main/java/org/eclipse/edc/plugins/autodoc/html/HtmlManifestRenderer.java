@@ -152,6 +152,14 @@ public class HtmlManifestRenderer implements ManifestRenderer {
     }
 
     @Override
+    public void renderFeature(@NotNull String featureKey, @Nullable String featureValue, boolean loadAsDefault) {
+        content.with(ul()
+                .with(li(b("Feature key: ")).with(code(featureKey)))
+                .with(li(b("Feature value: ")).with(codeOrNull(featureValue)))
+                .with(li(b("Load as default: ")).with(span(String.valueOf(loadAsDefault)))));
+    }
+
+    @Override
     public void renderConfigurations(List<ConfigurationSetting> configuration) {
         content.with(h4("Configuration: "));
         if (configuration.isEmpty()) {

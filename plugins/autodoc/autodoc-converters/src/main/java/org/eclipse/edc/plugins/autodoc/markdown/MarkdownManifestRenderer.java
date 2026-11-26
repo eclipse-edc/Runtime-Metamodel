@@ -115,6 +115,15 @@ public class MarkdownManifestRenderer implements ManifestRenderer {
     }
 
     @Override
+    public void renderFeature(@NotNull String featureKey, @Nullable String featureValue, boolean loadAsDefault) {
+        stringBuilder.append(bold("Feature:")).append(" ").append(code(featureKey + "=" + ofNullable(featureValue).orElse("")));
+        if (loadAsDefault) {
+            stringBuilder.append(" ").append(italic(format("(loaded as default if %s is not configured)", code(featureKey))));
+        }
+        stringBuilder.append(NEWLINE).append(NEWLINE);
+    }
+
+    @Override
     public void renderConfigurations(List<ConfigurationSetting> configuration) {
         var tableBuilder = new Table.Builder()
                 .addRow("Key", "Required", "Type", "Default", "Pattern", "Min", "Max", "Description");

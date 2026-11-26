@@ -117,7 +117,10 @@ public class EdcModuleProcessor extends AbstractProcessor {
                         .references(extensionIntrospector.resolveReferencedServices(element))
                         .configuration(extensionIntrospector.resolveConfigurationSettings(element))
                         .overview(overviewIntrospector.generateModuleOverview(moduleType, environment))
-                        .categories(extensionIntrospector.getExtensionCategories(element));
+                        .categories(extensionIntrospector.getExtensionCategories(element))
+                        .featureKey(extensionIntrospector.getFeatureKey(element))
+                        .featureValue(extensionIntrospector.getFeatureValue(element))
+                        .loadAsDefault(extensionIntrospector.isLoadAsDefault(element));
 
                 moduleBuilder.extension(extensionBuilder.build());
             });

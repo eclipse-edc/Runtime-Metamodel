@@ -149,6 +149,21 @@ public class HtmlManifestRendererTest {
     }
 
     @Nested
+    class Feature {
+        @Test
+        void shouldRenderFeature() {
+            renderer.renderFeature("edc.feature.test", "value", true);
+
+            var output = renderer.finalizeRendering();
+
+            assertThat(output).asString()
+                    .contains("<li><b>Feature key: </b><code>edc.feature.test</code></li>")
+                    .contains("<li><b>Feature value: </b><code>value</code></li>")
+                    .contains("<li><b>Load as default: </b><span>true</span></li>");
+        }
+    }
+
+    @Nested
     class Configurations {
         @Test
         void shouldRenderNone_whenNoConfigurations() {

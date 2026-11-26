@@ -23,6 +23,9 @@ import org.eclipse.edc.plugins.autodoc.core.processor.testextensions.SecondExten
 import org.eclipse.edc.plugins.autodoc.core.processor.testextensions.SettingContextExtension;
 import org.eclipse.edc.plugins.autodoc.core.processor.testextensions.SomeOtherService;
 import org.eclipse.edc.plugins.autodoc.core.processor.testextensions.SomeService;
+import org.eclipse.edc.plugins.autodoc.core.processor.testfeature.DefaultFeatureExtension;
+import org.eclipse.edc.plugins.autodoc.core.processor.testfeature.NonDefaultFeatureExtension;
+import org.eclipse.edc.plugins.autodoc.core.processor.testfeature.UnboundExtension;
 import org.eclipse.edc.plugins.autodoc.core.processor.testspi.ExtensionService;
 import org.eclipse.edc.runtime.metamodel.domain.ConfigurationSetting;
 import org.eclipse.edc.runtime.metamodel.domain.EdcModule;
@@ -288,6 +291,56 @@ public class EdcModuleProcessorTest {
 
         private @Nullable EdcServiceExtension getExtension(Set<EdcServiceExtension> serviceExtension, Class<?> clazz) {
             return serviceExtension.stream().filter(it -> it.getName().equals(clazz.getSimpleName())).findFirst().orElse(null);
+        }
+    }
+
+    @Nested
+    class Feature {
+        @Test
+        void shouldContainFeatureBinding() {
+            assertThat(createTask("testfeature").call()).isTrue();
+
+            var extensions = readManifest().get(0).getExtensions();
+
+            assertThat(getExtension(extensions, DefaultFeatureExtension.NAME)).satisfies(extension -> {
+                assertThat(extension.getFeatureKey()).isEqualTo("edc.feature.test");
+                assertThat(extension.getFeatureValue()).isEqualTo("default");
+                assertThat(extension.isLoadAsDefault()).isTrue();
+            });
+            assertThat(getExtension(extensions, NonDefaultFeatureExtension.NAME)).satisfies(extension -> {
+                assertThat(extension.getFeatureKey()).isEqualTo("edc.feature.test");
+                assertThat(extension.getFeatureValue()).isEqualTo("other");
+                assertThat(extension.isLoadAsDefault()).isFalse();
+            });
+        }
+
+        @Test
+        void shouldNotContainFeatureBinding_whenNotBound() {
+            assertThat(createTask("testfeature").call()).isTrue();
+
+            var extensions = readManifest().get(0).getExtensions();
+
+            assertThat(getExtension(extensions, UnboundExtension.NAME)).satisfies(extension -> {
+                assertThat(extension.getFeatureKey()).isNull();
+                assertThat(extension.getFeatureValue()).isNull();
+                assertThat(extension.isLoadAsDefault()).isFalse();
+            });
+        }
+
+        @Test
+        void shouldNotContainFeatureBinding_whenNoExtensionAnnotation() {
+            createTask("testextensions").call();
+
+            assertThat(readManifest().get(0).getExtensions())
+                    .allSatisfy(extension -> {
+                        assertThat(extension.getFeatureKey()).isNull();
+                        assertThat(extension.getFeatureValue()).isNull();
+                        assertThat(extension.isLoadAsDefault()).isFalse();
+                    });
+        }
+
+        private EdcServiceExtension getExtension(Set<EdcServiceExtension> extensions, String name) {
+            return extensions.stream().filter(it -> it.getName().equals(name)).findFirst().orElseThrow();
         }
     }
 
