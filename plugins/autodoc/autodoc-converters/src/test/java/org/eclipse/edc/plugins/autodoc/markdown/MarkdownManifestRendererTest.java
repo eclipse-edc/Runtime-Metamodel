@@ -154,6 +154,46 @@ class MarkdownManifestRendererTest {
         }
     }
 
+    @Nested
+    class Feature {
+
+        @Test
+        void shouldRenderFeature() {
+            var extension = EdcServiceExtension.Builder.newInstance().name("name").className("className")
+                    .featureKey("edc.feature.test").featureValue("value").build();
+            var list = List.of(EdcModule.Builder.newInstance().modulePath("foo").version("0.1.0-bar").extension(extension).build());
+
+            var result = writer.convert(list);
+
+            assertThat(result).isNotNull().extracting(Object::toString).asString()
+                    .contains("**Feature:** `edc.feature.test=value`")
+                    .doesNotContain("loaded as default");
+        }
+
+        @Test
+        void shouldRenderFeature_whenLoadAsDefault() {
+            var extension = EdcServiceExtension.Builder.newInstance().name("name").className("className")
+                    .featureKey("edc.feature.test").featureValue("value").loadAsDefault(true).build();
+            var list = List.of(EdcModule.Builder.newInstance().modulePath("foo").version("0.1.0-bar").extension(extension).build());
+
+            var result = writer.convert(list);
+
+            assertThat(result).isNotNull().extracting(Object::toString).asString()
+                    .contains("**Feature:** `edc.feature.test=value` _(loaded as default if `edc.feature.test` is not configured)_");
+        }
+
+        @Test
+        void shouldNotRenderFeature_whenNotBound() {
+            var extension = EdcServiceExtension.Builder.newInstance().name("name").className("className").build();
+            var list = List.of(EdcModule.Builder.newInstance().modulePath("foo").version("0.1.0-bar").extension(extension).build());
+
+            var result = writer.convert(list);
+
+            assertThat(result).isNotNull().extracting(Object::toString).asString()
+                    .doesNotContain("**Feature:**");
+        }
+    }
+
     private List<EdcModule> generateManifest(String filename) {
         try (var stream = Thread.currentThread().getContextClassLoader().getResourceAsStream(filename)) {
             return new ObjectMapper().readValue(stream, new TypeReference<>() {

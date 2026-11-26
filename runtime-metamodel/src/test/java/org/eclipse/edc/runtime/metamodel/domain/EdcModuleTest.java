@@ -35,6 +35,9 @@ class EdcModuleTest {
                         .overview("overview")
                         .categories(List.of("category"))
                         .className("test-classname")
+                        .featureKey("edc.feature.test")
+                        .featureValue("value")
+                        .loadAsDefault(true)
                         .provides(List.of(new Service("com.bar.BazService")))
                         .references(List.of(new ServiceReference("com.bar.QuuxService", false)))
                         .configuration(List.of(ConfigurationSetting.Builder.newInstance().key("key1").build()))
@@ -53,5 +56,22 @@ class EdcModuleTest {
         assertThat(extension.getProvides().size()).isEqualTo(1);
         assertThat(extension.getReferences().size()).isEqualTo(1);
         assertThat(extension.getConfiguration().size()).isEqualTo(1);
+        assertThat(extension.getFeatureKey()).isEqualTo("edc.feature.test");
+        assertThat(extension.getFeatureValue()).isEqualTo("value");
+        assertThat(extension.isLoadAsDefault()).isTrue();
+    }
+
+    @Test
+    void verifySerialize_withoutFeature() throws JacksonException {
+        var mapper = new ObjectMapper();
+        var extension = EdcServiceExtension.Builder.newInstance().name("test").className("test-classname").build();
+
+        var serialized = mapper.writeValueAsString(extension);
+        var deserialized = mapper.readValue(serialized, EdcServiceExtension.class);
+
+        assertThat(serialized).doesNotContain("featureKey").doesNotContain("featureValue");
+        assertThat(deserialized.getFeatureKey()).isNull();
+        assertThat(deserialized.getFeatureValue()).isNull();
+        assertThat(deserialized.isLoadAsDefault()).isFalse();
     }
 }

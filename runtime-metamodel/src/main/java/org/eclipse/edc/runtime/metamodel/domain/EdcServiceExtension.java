@@ -15,6 +15,7 @@
 package org.eclipse.edc.runtime.metamodel.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import tools.jackson.databind.annotation.JsonDeserialize;
 import tools.jackson.databind.annotation.JsonPOJOBuilder;
 
@@ -35,6 +36,11 @@ public class EdcServiceExtension {
     private ModuleType type = ModuleType.EXTENSION;
     private String overview;
     private String className;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String featureKey;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String featureValue;
+    private boolean loadAsDefault;
 
     private EdcServiceExtension() {
     }
@@ -92,6 +98,28 @@ public class EdcServiceExtension {
         return className;
     }
 
+    /**
+     * Returns the configuration key of the feature this extension is bound to, or null if it is not bound to a feature.
+     */
+    public String getFeatureKey() {
+        return featureKey;
+    }
+
+    /**
+     * Returns the value the feature key must be configured with for this extension to be loaded, or null if it is not
+     * bound to a feature.
+     */
+    public String getFeatureValue() {
+        return featureValue;
+    }
+
+    /**
+     * Returns whether this extension is loaded if its feature key is not configured.
+     */
+    public boolean isLoadAsDefault() {
+        return loadAsDefault;
+    }
+
     @JsonPOJOBuilder(withPrefix = "")
     public static class Builder {
         private final EdcServiceExtension serviceExtension;
@@ -144,6 +172,21 @@ public class EdcServiceExtension {
 
         public Builder className(String className) {
             serviceExtension.className = className;
+            return this;
+        }
+
+        public Builder featureKey(String featureKey) {
+            serviceExtension.featureKey = featureKey;
+            return this;
+        }
+
+        public Builder featureValue(String featureValue) {
+            serviceExtension.featureValue = featureValue;
+            return this;
+        }
+
+        public Builder loadAsDefault(boolean loadAsDefault) {
+            serviceExtension.loadAsDefault = loadAsDefault;
             return this;
         }
 

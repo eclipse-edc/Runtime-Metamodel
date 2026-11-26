@@ -69,6 +69,10 @@ public class ManifestWriter {
     protected void handleServiceExtension(EdcServiceExtension serviceExtension) {
         renderer.renderExtensionHeader(serviceExtension.getClassName(), serviceExtension.getName(), serviceExtension.getOverview(), serviceExtension.getType());
 
+        if (serviceExtension.getFeatureKey() != null) {
+            renderer.renderFeature(serviceExtension.getFeatureKey(), serviceExtension.getFeatureValue(), serviceExtension.isLoadAsDefault());
+        }
+
         renderer.renderConfigurations(serviceExtension.getConfiguration());
 
         renderer.renderProvidedServices(serviceExtension.getProvides());

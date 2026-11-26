@@ -71,6 +71,16 @@ public interface ManifestRenderer {
     void renderExtensionHeader(@NotNull String className, @Nullable String name, @Nullable String overview, ModuleType type);
 
     /**
+     * Render the feature an extension is bound to. Not called if the extension is not bound to a feature.
+     *
+     * @param featureKey    The configuration key of the feature.
+     * @param featureValue  The value the feature key must be configured with for the extension to be loaded. May be null.
+     * @param loadAsDefault Whether the extension is loaded if the feature key is not configured.
+     */
+    default void renderFeature(@NotNull String featureKey, @Nullable String featureValue, boolean loadAsDefault) {
+    }
+
+    /**
      * Render all configuration values that are declared by a particular extension
      */
     void renderConfigurations(List<ConfigurationSetting> configuration);
