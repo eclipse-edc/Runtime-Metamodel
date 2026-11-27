@@ -3,17 +3,15 @@ plugins {
     alias(libs.plugins.edc.build)
 }
 
-val edcScmUrl: String by project
-val edcScmConnection: String by project
 val edcBuildId = libs.plugins.edc.build.get().pluginId
 
 allprojects {
-    apply(plugin = edcBuildId)
+    pluginManager.apply(edcBuildId)
 
     configure<org.eclipse.edc.plugins.edcbuild.extensions.BuildExtension> {
         pom {
-            scmUrl.set(edcScmUrl)
-            scmConnection.set(edcScmConnection)
+            scmUrl.set(project.property("edcScmUrl") as String)
+            scmConnection.set(project.property("edcScmConnection") as String)
         }
     }
 
