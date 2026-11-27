@@ -16,7 +16,7 @@ plugins {
 }
 
 dependencies {
-    api(project(":runtime-metamodel"))
+    api(project(":spi:runtime-metamodel"))
 
-    testImplementation(libs.edc.boot.spi)
+    testImplementation(project(":spi:runtime-spi"))
 }

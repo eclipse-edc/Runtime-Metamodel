@@ -10,7 +10,11 @@ pluginManagement {
     }
 }
 
-include(":runtime-metamodel")
+include(":core:boot")
+include(":core:junit-base")
+include(":spi:runtime-metamodel")
+include(":spi:runtime-spi")
+
 include(":plugins:autodoc:autodoc-plugin")
 include(":plugins:autodoc:autodoc-processor")
 include(":plugins:autodoc:autodoc-converters")

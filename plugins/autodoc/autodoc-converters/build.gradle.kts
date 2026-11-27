@@ -16,7 +16,7 @@ plugins {
 }
 
 dependencies {
-    api(project(":runtime-metamodel"))
+    api(project(":spi:runtime-metamodel"))
 
     implementation(libs.markdown.gen)
     implementation(libs.j2html)
